@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  h1 Listagem das Cervejas
+
+  ul
+  for beer in beers
+    li
+      a(href='/beers/#{beer._id}') #{beer.name} - #{beer.price}
