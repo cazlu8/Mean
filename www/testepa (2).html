@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Teste</title>
+    <meta charset="UTF8">
+  </head>
+  <body>
+
+
+
+
+
+<form action="" method="post" id="auto">
+
+  <select name="setor">
+
+    <option value="0">Escolher setor</option>
+
+        <?php
+
+         $d = pg_connect("host=localhost port=5432 dbname=Geores user=postgres password=root");
+
+
+        $result=pg_query($d, "SELECT * FROM nome_setor;");
+
+         
+
+         while($ln = pg_fetch_assoc($result)){
+
+            echo '<option value="'.$ln['id_setor'].'">'.$ln['nome_setor'].'</option>';
+
+         }
+
+      ?>
+
+        
+
+  </select>
+
+    
+
+  <select name="municipio">
+
+     <option value="0" selected="selected">Aguardando setor...</option>
+
+  </select>
+
+
+   
+
+</form>
+<script type='text/javascript' src ='jquery.js'>
+
+    
+
+      $(document).ready(function(){
+
+        // Evento change no campo tipo 
+
+         $("select[name=setor]").change(function(){
+
+            // Exibimos no <span class="w3958bu5xn7b" id="w3958bu5xn7b_8" style="height: 12px;">campo marca</span> antes de concluirmos
+
+            $("select[name=municipio]").html('<<span class="w3958bu5xn7b" id="w3958bu5xn7b_6" style="height: 12px;">option value</span>="">Carregando...</option>');
+
+            // Exibimos no campo marca antes de selecionamos a marca, serve também em caso
+
+            // do usuario ja ter selecionado o tipo e resolveu trocar, com isso limpamos a
+
+            // seleção antiga caso tenha feito.
+
+           
+
+            // Passando tipo por parametro para a pagina ajax-marca.php
+
+            $.post("municipio.php",
+
+                  {tipo:$(this).val()},
+
+                  // Carregamos o resultado acima para o campo marca
+
+                  function(valor){
+
+
+                     $("select[name=municipio]").html(valor);
+
+                  }
+
+                  )
+
+         })
+
+        // Evento change no campo marca
+
+       
+
+      
+
+
+      })
+
+       
+
+</script>
+  
+  </body>
+</html>

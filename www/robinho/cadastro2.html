@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cadastro de Pizzas</title>
+      <link href="../css/bootstrap.css" rel="stylesheet" />
+    
+     <script src="jquery.1.9.js"></script>
+     <script src="jquery.js"></script>
+
+  
+</head>
+<body onload="exibirPizza()">
+
+    <header class="modal-header">
+        <h1>Cadastrar Pizza</h1>
+    </header>
+
+<button id="btnForm" class="btn btn-primary">Criar Formulario</button>
+    <section class="col-md-4">
+        <form class="well" id="forms">
+            <label>Nome</label><br />
+            <input type="text" id="nome" class="form-control" /><br />
+            <label>Borda</label><br />
+            <input type="text" id="borda" class="form-control" /><br />
+            <label>Acompanhamento</label><br />
+            <input type="text" id="acompanhamento" class="form-control" /><br />
+            <label>Tamanho</label><br />
+            <input type="text" id="tamanho" class="form-control" /><br />
+            <label>Preço</label><br />
+            <input type="text" id="preco" class="form-control" /><br />
+            <label>Cliente</label><br />
+            <input type="text" id="cliente" class="form-control" /><br />
+            <button id="btnCriar" class="btn btn-primary" >Criar Pizza</button>
+
+        </form>
+
+
+
+
+    </section>
+
+    <section class="col-md-8">
+         <table id="tabelaPizza" class="table table-striped"></table>
+    </section>
+</body>
+</html>  

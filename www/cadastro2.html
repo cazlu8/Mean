@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cadastro de Pizzas</title>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <script src="pizza.js"></script>
+     <script src="jquery.1.9.js"></script>
+     <script src="jquery.js"></script>
+
+  
+</head>
+<body onload="exibirPizza()">
+
+    <header class="modal-header">
+        <h1>Cadastrar Pizza</h1>
+    </header>
+
+
+    <section class="col-md-4">
+        <form class="well" id="forms">
+            <label>Nome</label><br />
+            <input type="text" id="nome" class="form-control" /><br />
+            <label>Borda</label><br />
+            <input type="text" id="borda" class="form-control" /><br />
+            <label>Acompanhamento</label><br />
+            <input type="text" id="acompanhamento" class="form-control" /><br />
+            <label>Tamanho</label><br />
+            <input type="text" id="tamanho" class="form-control" /><br />
+            <label>Preço</label><br />
+            <input type="text" id="preço" class="form-control" /><br />
+            <label>Cliente</label><br />
+            <input type="text" id="cliente" class="form-control" /><br />
+            <button id="btnCriar" class="btn btn-primary" onclick="criarPizza()">Criar Pizza</button>
+
+        </form>
+
+
+        <h2> <a href="Home.html">Pagina Inicial</a> </h2>
+
+        <h2>
+            <a href="cadastro.html">Cadastro de Usuario</a> 
+        </h2>
+
+
+    </section>
+
+    <section class="col-md-8">
+         <table id="tabelaPizza" class="table table-striped"></table>
+    </section>
+</body>
+</html>  

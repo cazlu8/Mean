@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Tarefa Cadastro</title>
+    <link href="prova/bootstrap.css" rel="stylesheet" />
+    <script src="main.js"></script>
+</head>
+<body onload="exibirTarefas()">
+    <header>
+        <h1>Cadastrar Tarefas</h1>
+    </header>
+
+    <section class="col-md-4">
+        <form>
+
+            <label>Numero:</label><br />
+            <input type="text" id="numero" class="form-control" /><br />
+
+            <label>Assunto:</label><br />
+            <input type="text" id="assunto" class="form-control" /><br />
+
+            <label>Data Início:</label><br />
+            <input type="text" id="dataInicio" class="form-control" /><br />
+
+            <label>Data Conclusão:</label><br />
+            <input type="text" id="dataConclusao" class="form-control" /><br />
+
+            <label>Porcentagem Conclusão:</label><br />
+            <input type="text" id="prctConclusao" class="form-control"  /><br />
+
+            <button id="btnCriar" class="btn btn-primary" onclick="criarTarefa()">Criar Tarefa</button>
+
+
+        </form>
+    </section>
+    <section class="col-md-8">
+        <table id="tabelaTarefas" class="table table-striped"></table>
+
+    </section>
+
+</body>
+
+
+</html>

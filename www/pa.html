@@ -1,0 +1,32 @@
+
+<<!DOCTYPE html>
+<html>
+<head>
+	<title>pa</title>
+</head>
+<body>
+<form method="post" action="cadastra.php">
+<fieldset>
+<label> Municipio:
+ </label> 
+ <?
+
+$cn=mysql_connect("localhost",'root') or die("Note: " . mysql_error());
+$res=mysql_select_db("GEORESPROJECT",$cn) or die("Note: " . mysql_error());
+$res=mysql_query("select * from municipio;") or die("Note: " . mysql_error());
+
+?>
+<select name="municipios" size=1>
+<?
+while($ri = mysql_fetch_array($res))
+{
+echo "<option value=" .$ri['id'] . ">" . $ri['nome'] . "</option>";
+}
+echo "</select> "
+
+?>
+</fieldset>
+</form>
+</body>
+</html>
+

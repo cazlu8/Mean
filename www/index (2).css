@@ -1,0 +1,286 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face {
+	font-family: 'MYRIADPROREGULAR';
+	src: url('../fontes/MYRIADPROREGULAR.eot');
+	src: local('MYRIADPROREGULAR'), url('../fontes/MYRIADPROREGULAR.woff') format('woff'), url('../fontes/MYRIADPROREGULAR.ttf') format('truetype');
+}
+
+.fontsforweb_fontid_4410 {
+	font-family: 'MYRIADPROREGULAR' !important;
+}
+
+div.clear{
+	clear:both;
+}
+
+div#traco{
+	min-height:10px;
+	height:12px;
+	background:#9bd3ae;
+}
+
+div#animacao{
+	height:340px;
+	background:url(../img/animacao.jpg) top center no-repeat;
+}
+
+div#conteudo{
+	height:560px;
+	background:#f2f7df;
+}
+
+div#conteudo div.container{
+	height:65px;
+	margin-top:-35px;
+}
+
+div#conteudo div.container ul {
+	height:65px;
+	background:#e4e7d0;
+}
+
+div#conteudo div.container ul li{
+	width:180px;
+	height:65px;
+	float:left;
+	list-style:none;
+	cursor:pointer;
+}
+
+
+div#conteudo div.container ul li:hover{
+	background:#9bd3ae;
+}
+
+div#conteudo div.container ul li:hover p.noticias{
+	background:url(../img/seta.png) 90% 90%  no-repeat;
+}
+
+div#conteudo div.container ul li:first-child{
+	background:#FFF;
+	cursor:none;
+}
+
+div#conteudo div.container ul li:first-child img{
+	margin-top:0;
+}
+
+div#conteudo div.container ul li p.ativo{
+	background:url(../img/seta.png) 90% 90%  no-repeat;
+}
+
+div#conteudo div.container ul li p{
+	width:100%;
+	line-height:35px;
+	font-size:22px;
+	text-align:center;
+	margin-top:15px;
+	font-family: 'MYRIADPROREGULAR' !important;
+	color:#333333;
+}
+
+div#conteudo div.container ul li a{
+	color:#333333;
+	text-decoration:none;
+}
+
+div#conteudo div.container div.mapa{
+	width:538px;
+	height:359px;
+	float:left;
+	margin-left:0;
+	margin-top:25px;
+}
+
+div#conteudo div.container div.textos{
+	width:350px;
+	float:left;
+	margin-left:80px;
+	margin-top:25px;
+}
+
+div#conteudo div.container div.textos h1{
+	font-size:20px;
+	float:left;
+	width:300px;
+	line-height:20px;
+	font-family: 'MYRIADPROREGULAR' !important;
+	color:#2d2b2a;
+}
+
+div#conteudo div.container div.textos p{
+	float:left;
+	width:350px;
+	font-size:14px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+}
+
+div#conteudo div.container div.logos{
+	width:100%;
+	height:70px;
+	margin-top:50px;
+	text-align:center;
+}
+
+div#noticias{
+	background:#eef1ae;
+}
+
+div#noticias div.container{
+	min-height:200px;
+	padding-bottom:20px;
+	background:#eef1ae;
+}
+
+div#noticias div.container h2{
+	width:100%;
+	font-size:18px;
+	float:left;
+	line-height:20px;
+	margin-top:45px;
+	font-family: 'MYRIADPROREGULAR' !important;
+	color:#2d2b2a;
+}
+
+div#noticias div.container span{
+	width:115px;
+	height:8px;
+	display:block;
+	float:left;
+	background:#9bd3ae;
+}
+
+div#noticias div.container ul{
+	width:900px;
+	height:auto;
+	float:left;
+	margin-left:0;
+	margin-top:25px;
+}
+
+div#noticias div.container ul li{
+	width:223px;
+	height:270px;
+	margin-right:115px;
+	float:left;
+	list-style:none;
+	margin-bottom:75px;
+}
+
+div#noticias div.container ul li p{
+	margin-top:12px;
+	font-size:12px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+}
+
+div#noticias div.container ul li b{
+	display:block;
+	width:100%;
+	font-family: 'MYRIADPROREGULAR' !important;
+	font-size:14px;
+	color:#008f34;
+	margin-bottom:5px;
+}
+
+div#rodape{
+	height:140px;
+	background:#f2f7df;
+}
+
+
+div#rodape div.container h2{
+	width:100%;
+	font-size:18px;
+	float:left;
+	line-height:20px;
+	margin-top:40px;
+	font-family: 'MYRIADPROREGULAR' !important;
+	color:#2d2b2a;
+}
+
+div#rodape div.container span{
+	width:115px;
+	height:8px;
+	display:block;
+	float:left;
+	background:#9bd3ae;
+}
+
+div#rodape div.container img.email{
+	 float:left;
+	 margin-left:0;
+	 margin-top:20px;
+}
+
+div#rodape div.container img.logo{
+	 float:right;
+	 margin-right:100px;
+	 margin-top:0px;
+}
+
+div#rodape div.container p{
+	width:220px;
+	position:absolute;
+	margin-left:230px;
+	margin-top:40px;
+}
+
+div#traco-fim{
+	height:18px;
+	min-height:10px;
+	background:#9bd3ae;
+}
+
+/*############ Fale Conosco##########*/
+
+.modal-header{
+	border:none;
+}
+
+
+div.esp-fale-conosco label{
+	margin-left:5px;
+}
+
+
+div.esp-fale-conosco input{
+	width:95%;
+	-webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+     border-radius: 0px;
+	border:none;
+	border-bottom:1px solid #727168;
+	background:#e4e7d0;
+	box-shadow:none;
+	margin-left:5px;
+}
+
+div.esp-fale-conosco h1{
+	width:95%;
+	font-size:18px;
+	float:left;
+	line-height:20px;
+	margin-top:10px;
+	margin-left:5px;
+	font-family: 'MYRIADPROREGULAR' !important;
+	color:#2d2b2a;
+}
+
+div.esp-fale-conosco textarea{
+	width:95%;
+	height:85px;
+	margin-left:5px;
+}
+
+.close{
+	opacity:1;
+}
+
+div.esp-fale-conosco button{
+	width:120px;
+	height:42px;
+	border:none;
+	background:none;
+}
+

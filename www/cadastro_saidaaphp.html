@@ -1,0 +1,40 @@
+<?php
+$d= pg_connect("host=localhost port=5432 dbname=Geores user=postgres password=root");
+
+
+$setor=$_POST['setor'];
+$result= pg_query($d,"SELECT nome_setor FROM nome_setor where id_setor = '$setor' ;");
+$_setor = pg_fetch_assoc($result);
+$setor=$_setor['nome_setor'];
+
+
+$municipio=$_POST['municipio'];
+$result = pg_query($d,"SELECT nome_municipio FROM municipio where id_municipio = '$municipio' ;");
+$_municipio = pg_fetch_assoc($result);
+$municipio=$_municipio['nome_municipio'];
+ 
+$coleta=$_POST['coleta'];
+$result= pg_query($d,"SELECT tipo_coleta FROM coleta where id_coleta = '$coleta' ;");
+$_coleta = pg_fetch_assoc($result);
+$coleta=$_coleta['tipo_coleta'];
+ 
+
+$tipo_residuo=$_POST['tipo_residuo'];
+$result= pg_query($d,"SELECT tipo_residuo FROM tipo_residuos where id_residuo = '$tipo_residuo' ;");
+$_tipo_residuo = pg_fetch_assoc($result);
+$tipo_residuo=$_tipo_residuo['tipo_residuo'];
+ 
+$placa_caminhao=$_POST['placa_caminhao'];
+$result= pg_query($d,"SELECT placa_caminhao FROM placa_caminhao where id_placa = '$placa_caminhao' ;");
+$_placa_caminhao = pg_fetch_assoc($result);
+$placa_caminhao=$_placa_caminhao['placa_caminhao'];
+
+$data=$_POST['data'];
+$peso=$_POST['peso'];
+
+
+pg_query($d,"INSERT INTO relatorio (setor,municipio,coleta,residuo,caminhao,peso,data) VALUES ('$setor','$municipio', '$coleta','$tipo_residuo','$placa_caminhao','$peso','$data')");
+
+echo "Seu cadastro foi realizado com sucesso!Agradecemos a atenção."; 
+
+?>

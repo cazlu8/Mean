@@ -1,0 +1,36 @@
+<?php
+$conexao = mysqli_connect('localhost', 'root','','georesprojeto');
+
+
+
+$area= $_POST["area"];
+
+$tipo= $_POST["tipo"];
+
+$subtipo= $_POST["subtipo"];
+
+$destino= $_POST["destino"];
+
+$peso= $_POST["peso"];
+
+
+<pre><code>$conexao = mysql_connect("localhost","root"); 
+if (!$conexao) 
+die ("Erro de conexão com localhost, o seguinte erro ocorreu -> ".mysql_error());
+
+
+$banco = mysql_select_db("residuo",$conexao); 
+
+
+$query = "INSERT INTO `residuo` ( `municipio_id` , `area` , `tipo` , `subtipo` , `destino` , `peso` , `data`)  
+VALUES ( 1, '$area', '$tipo', '$subtipo', '$destino', '$peso', now())"; 
+mysql_query($query,$conexao); 
+
+
+
+echo "Seu cadastro foi realizado com sucesso!Agradecemos a atenção."; 
+
+
+
+
+?>
