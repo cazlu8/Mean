@@ -1,6 +1,6 @@
 $(document).ready(function() {
-
 	function pickerDate(id) {
+
 		$(id).datepicker({
 			dateFormat: 'dd/mm/yy',
 			dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
@@ -9,19 +9,18 @@ $(document).ready(function() {
 			monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
 			monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 		});
+
 	}
-
-
 	pickerDate('#calendario');
 	pickerDate('#calendario2');
 	pickerDate('#calendario3');
 	pickerDate('#calendario4');
-
-	$("#empresa1").slideUp();
+	pickerDate('#iniciofs');
+	pickerDate('#fimfs');
+	$("#empresas").slideUp();
 	$("#nomediv").slideUp();
 	$("#tara1").slideUp();
 	$("#btntara").slideUp();
-
 
 	$("select[name=residuo_classificado]").change(function() {
 		$("select[name=destino]").html('<option>Carregando...</option>');
@@ -32,11 +31,11 @@ $(document).ready(function() {
 				if ($("select[name=residuo_classificado]").val() == 7 || $("select[name=residuo_classificado]").val() == 8 || $("select[name=residuo_classificado]").val() == 10) {
 					$("select[name=destino]").slideDown();
 					$("select[name=destino]").html(valor);
-					$("#empresa1").slideUp();
+					$("#empresas").slideUp();
 				} else {
 					$("select[name=destino]").html('<option>Carregando...</option>');
 					$("select[name=destino]").slideUp();
-					$("#empresa1").slideDown();
+					$("#empresas").slideDown();
 				}
 
 			}
@@ -54,16 +53,13 @@ $(document).ready(function() {
 		);
 	});
 
-
 	$("select[name=placas_vazias]").change(function() {
 		$.post("testejson1.php", {
 				id: $(this).val()
 			},
 			function(valor) {
-
 				if ($("select[name=placas_vazias]").val() != 0) {
 					var nome = JSON.parse(valor);
-
 					$('select[name=municipio]').slideUp();
 					$('select[name=coleta]').slideUp();
 					$('select[name=rota]').slideUp();
@@ -78,7 +74,6 @@ $(document).ready(function() {
 					$('#nomediv').slideDown();
 					$('#nomediv').html('<label>Tipo de residuo:</label>' + nome.tipo_residuo + '<label>Peso:</label>' + nome.peso_residuo + '<label>Data:</label>' + nome.data + '<label>Motorista:</label>' + nome.nome_motorista + '<label>Municipio:</label>' + nome.nome_municipio);
 				} else {
-
 					$('select[name=municipio]').slideDown();
 					$('select[name=coleta]').slideDown();
 					$('select[name=rota]').slideDown();
@@ -91,30 +86,27 @@ $(document).ready(function() {
 					$('#tara1').slideUp();
 					$('#btntara').slideUp();
 					$('#nomediv').slideUp();
-
 				}
-
-
-
 			}
 		);
 	});
 
+	$('a[name=deletarS]').click(function(e) {
+		e.preventDefault();
 
+		$('#mensagem').load('deleta_residuo_saida.php?pr=' + $('#id_residuosS').val());
+	});
 
 	$('a[name=deletar]').click(function(e) {
 		e.preventDefault();
 
 		$('#mensagem').load('deleta_residuo.php?pr=' + $('#id_residuos').val());
-
-
 	});
 
 	$('a[name=delet]').click(function(e) {
 		e.preventDefault();
 
 		$('#mensagem2').load('deleta_residuo.php?pr=' + $('#id_residuos1').val());
-
 
 	});
 
@@ -126,23 +118,48 @@ $(document).ready(function() {
 
 	});
 
-
-
 	$("#filtro").click(function(e) {
 		e.preventDefault();
+		var dateValid = true;
+		if ($('#calendario4').val() == '') {
+			$('#calendario4').datepicker('setDate', '10/10/2016');
 
-		$.post("filtra_entrada.php", {},
+		};
+		if ($('#calendario3').datepicker('getDate') > $('#calendario4').datepicker('getDate')) {
+			dateValid = false;
+			alert('Data de fim anterior que a de inicio! por favor digite uma data posterior.');
+			console.log('errado!');
+		};
+		$.post("filtra_entrada.php", {
+				setor: $('#setorf').val(),
+				municipio: $('#municipiof').val(),
+				coleta: $('#coletaf').val(),
+				inicio: $('#calendario3').val(),
+				fim: $('#calendario4').val(),
+				residuo: $('#residuof').val()
+			},
 			function(valor) {
-				$("#tfhover").html(valor);
-
+				if (dateValid) {
+					$("#tfhover").html(valor);
+					$('#calendario4').val('');
+				} else {
+					$("#tfhover").html('<h1> Data de fim anterior que a data de inicio!</h1>');
+				}
 			})
-
-
-	});
-
+	}); 
 	$("#filtroS").click(function(e) {
 		e.preventDefault();
+		var dateValid = true;
+		if ($('#fimfs').val() == '') {
+			$('#fimfs').datepicker('setDate', '10/10/2016');
 
+		};
+
+		if ($('#iniciofs').datepicker('getDate') > $('#fimfs').datepicker('getDate')) {
+			dateValid = false;
+			alert('Data de fim anterior que a de inicio! por favor digite uma data posterior.');
+			console.log('errado!');
+		};
 		$.post("filtra_saida.php", {
 				residuo: $('#residuofs').val(),
 				empresa: $('#empresafs').val(),
@@ -150,25 +167,27 @@ $(document).ready(function() {
 				inicio: $('#iniciofs').val(),
 				fim: $('#fimfs').val()
 			},
+
 			function(valor) {
-				$("#tfhover").html(valor);
+				if (dateValid) {
+					$("#tfhover").html(valor);
+					$('#fimfs').val('');
+				} else {
+					$("#tfhover").html('<h1> Data de fim anterior que a data de inicio!</h1>');
+				}
 
-			})
+			});
 	});
-
 
 	function delreg(vRg) {
 		var id = vRg;
 		document.getElementById('id_residuos').value = id;
 	}
 
-
 	function delrege(vRg) {
 		var id = vRg;
 		document.getElementById('id_residuos1').value = id;
 	}
-
-
 	var table_config = {
 		"bDestroy": true,
 		"paging": false,
@@ -204,14 +223,6 @@ $(document).ready(function() {
 
 
 
-	$('a[name=deleta]').click(function(e) {
-		e.preventDefault();
-
-		$('#mensagem').load('deleta_residuo_saida.php?pr=' + $('#id_destinacao').val());
-
-
-	});
-
 	jQuery('#entrada').submit(function() {
 		var dados = jQuery(this).serialize();
 
@@ -221,6 +232,7 @@ $(document).ready(function() {
 			data: dados,
 			success: function(data) {
 				alert(data);
+				location.reload();
 			}
 		});
 
@@ -229,9 +241,6 @@ $(document).ready(function() {
 
 	jQuery('#formtara').submit(function() {
 		var dados = jQuery(this).serialize();
-
-
-
 		jQuery.ajax({
 			type: "POST",
 			url: "cadastra_tara.php",
@@ -258,15 +267,9 @@ $(document).ready(function() {
 
 		return false;
 	});
-
-
 	$('#tfhover').on('click', 'a[name=deletar1]', function(e) {
 		e.preventDefault();
-
 		$.ajax({
-
-
-
 			type: "POST",
 			url: "deleta_residuo.php",
 			data: {
@@ -282,8 +285,6 @@ $(document).ready(function() {
 		return false;
 	});
 
-
-
 	jQuery('#saida').submit(function() {
 		var dados = jQuery(this).serialize();
 
@@ -293,6 +294,8 @@ $(document).ready(function() {
 			data: dados,
 			success: function(data) {
 				alert(data);
+				location.reload();
+				
 			}
 		});
 

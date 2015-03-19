@@ -6,14 +6,15 @@ $connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres
     <head>
         <title>Amures</title>
         <meta charset="UTF8">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/table.css">
         <link rel="stylesheet" href="css/bootstrap-responsive.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/jquery-ui.css">
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="shortcut icon" href="favicon.ico" />
-        <link rel="stylesheet" href="css/table.css">
+        <script type="text/javascript" src="js/jquery.ajax.js"></script>
         <script src="js/jquery.js"></script>
         <script src="js/jquery.1.9.js"></script>
         <script src="js/bootstrap-modal.js"></script>
@@ -23,17 +24,38 @@ $connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres
         <script type="text/javascript">
         $(document).ready(function() {
         $('#myModal').modal('hide');
-        $('a[name=deletar1]').click(function(e) {
+
+
+       $('a[name=deletarS]').click(function(e) {
         e.preventDefault();
         
-        $('#mensagem').load('deleta_residuo_saida.php?pr='+$('#id_destinacao').val());
+        $('#mensagem').load('deleta_residuo_saida.php?pr='+$('#id_residuosS').val());
+        
+        });
+        $('a[name=deletarS]').click(function(e) {
+        e.preventDefault();
+        
+        $('#mensagem1').load('deleta_residuo_saida.php?pr='+$('#id_residuosS').val());
+        
+        });
+        $("#filtro").click(function(e) {
+        e.preventDefault();
+        
+        $.post("filtra_entrada.php",{},
+        function(valor){
+        $("#tfhover").html(valor);
+        })
         
         
         });
         });
+        function delrege(vRg){
+        var id = vRg ;
+        document.getElementById('id_residuosS').value = id;
+        }
         function delreg(vRg){
         var id = vRg ;
-        document.getElementById('id_destinacao').value = id;
+        document.getElementById('id_residuosS').value = id;
         }
         </script>
     </head>
@@ -69,7 +91,7 @@ $connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres
                     <li><a href="index.html"><p>INÍCIO</p></a></li>
                     <li><a href="#"><p>PROJETO</p></a></li>
                     <li><a href="#"><p class="noticias">NOTÍCIAS</p></a></li>
-                    <li><a href="#"><p class="noticias">RELATORIO</p></a></li>
+                    <li><a href="#"><p class="noticias">RELATÓRIO</p></a></li>
                     <li><a href="#"><p class="noticias">CADASTROS</p></a></li>
                     <li><a href="#myModal" data-toggle="modal"><p>CONTATO</p></a></li>
                 </ul>
@@ -79,82 +101,93 @@ $connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres
                 <br/>
                 <br/>
                 <br/>
-                <form action="" method="post" id="entrada">
-                    <label for="calendario3">Inicio:</label> <input type="text" name="calendario3" id="iniciofs">
-                    <label for="calendario4">Fim:</label> <input type="text" name="calendario4" id="fimfs">
-                    <label>Residuo Classificado:</label>
-                    <select name="residuo_classificado" class="mainselection" id="residuofs">
+                <form action="" method="post" id="relatorio_entrada">
+                    <label for="calendario3">Inicio:</label> <input type="text" name="calendario3" id="calendario3">
+                    <label for="calendario4">Fim:</label> <input type="text" name="calendario4" id="calendario4">
+                    <select name="residuo_classificado" class="mainselection" id="setorf">
+                        
                         <option value="0">Todos</option>
                         <?php
-                        $result = pg_query($connection, "SELECT * FROM residuo_classificado");
+                        $result = pg_query($connection, "SELECT * FROM setor");
                         while($line = pg_fetch_assoc($result))
                         {
-                        echo "<option value=\"$line[id_residuo]\">$line[nome_residuo]</option>";
+                        echo "<option value=\"$line[id_setor]\">$line[nome_setor]</option>";
                         }
                         ?>
                     </select>
-                    <label>Destino:</label>
-                    <select name="destino" class="mainselection" id="destinofs" >
-                         <option value="0">Todos</option>
-                    </select>
-                    <label>Empresa:</label>
-                    <select name="empresa" class="mainselection" id="empresafs">
+                    <select name="municipio" class="mainselection" id="municipiof">
+                        <option value="0">Aguardando setor...</option>
                         <option value="0">Todos</option>
+                    </select>
+                    
+                    <select name="coleta" class="mainselection" id="coletaf">
+                        <option value="0">Escolher coleta</option>
+                        <option value="0">Todas</option>
                         <?php
-                        $result = pg_query($connection, "SELECT * FROM empresa");
+                        $result = pg_query($connection, "SELECT * FROM coleta");
                         while($line = pg_fetch_assoc($result))
                         {
-                        echo "<option value=\"$line[id_empresa]\">$line[nome_empresa]</option>";
+                        echo "<option value=\"$line[id_coleta]\">$line[tipo_coleta]</option>";
                         }
                         ?>
                     </select>
-                    
-                    
-                    <input type="submit" class="btn btn-primary" value="Filtrar" id="filtroS">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <?php
-                    $result = pg_query($connection, "SELECT d.id_destinacao, d.residuo_classificado, d.peso,TO_CHAR(d.data, 'DD/MM/YYYY') as data, d.tipo_destino,
-                    e.nome_empresa FROM destinacao as d inner join empresa as e on e.id_empresa = d.id_empresa");
-                    
-                    if(pg_num_rows($result)>0)
-                    {
-                    echo "<table id='tfhover' class='tftable' border='1'>";
-                        
-                        
-                        echo "<tr>";
-                            echo "<th>  Residuo </th>";
-                            echo "<th>  Peso  </th>";
-                            echo "<th>  Destino   </th>";
-                            echo "<th>  Empresa  </th>";
-                            echo "<th>  Data  </th>";
-                            
-                            echo "<th style='text-align:center;'>Action</th>";
-                        echo "</tr>";
-                        
-                        while ($info = pg_fetch_array($result))
-                        {
-                        echo "<tr>";
-                            echo "<td>$info[residuo_classificado]</td>";
-                            echo "<td>$info[peso]</td>";
-                            echo "<td>$info[tipo_destino]</td>";
-                            echo "<td>$info[nome_empresa]</td>";
-                            echo "<td>$info[data]</td>";
-                            echo "<td style='text-align:center;'>";
-                                
-                                echo "<input name='id_destinacao' type='hidden' value='0' id='id_destinacao'>";
-                                
-                                echo "<a class='btn btn-primary' href='#' name='deletar1' onClick='delreg($info[id_destinacao]);'>Deletar</a></td>";
-                                echo"<div id='mensagem'></div>";
-                            echo "</td>";
-                        echo "</tr>";
-                        }
-                    print "</table>";
-                    }
-                    ?>
-                    
+                    <select name="residuo_entrada" class="mainselection" id="residuof">
+                        <option value="0">Aguardando coleta...</option>
+                        <option value="0">Todas</option>
+                    </select>
+                    <input type="submit" class="btn btn-primary" value="Filtrar" id="filtro">
                 </form>
+                <?php
+                ?>
+                <br/>
+                <br/>
+                <br/>
+                <?php
+                $result = pg_query($connection, "SELECT d.id_destinacao, d.residuo_classificado, d.peso, TO_CHAR(d.data, 'DD/MM/YYYY') as data, d.id_empresa,d.tipo_destino
+                ,e.nome_empresa FROM destinacao as d inner join empresa as e on e.id_empresa=d.id_empresa");
+                
+                if(pg_num_rows($result)>0)
+                {
+                echo "<table width=1000 id='tfhover' class='tftable' border='1'>";//start table
+                    
+                    //creating our table heading
+                    echo "<tr>";
+                        echo "<th>  Residuo Classificado  </th>";
+                        echo "<th>  Peso </th>";
+                        echo "<th> Data </th>";
+                        echo "<th>  Destino  </th>";
+                        echo "<th> Empresa  </th>";
+                        
+                        echo "<th style='text-align:center;'>Action</th>";
+                    echo "</tr>";
+                    
+                    while ($info = pg_fetch_array($result))
+                    {
+                    echo "<tr>";
+                        echo "<td>$info[residuo_classificado]</td>";
+                        echo "<td>$info[peso]</td>";
+                        echo "<td>$info[data]</td>";
+                        echo "<td>$info[tipo_destino]</td>";
+                        echo "<td>$info[nome_empresa]</td>";
+                        echo "<td style='text-align:center;'>";
+                            
+                            echo "<input name='id_residuosS' type='hidden' value='0' id='id_residuosS'>";
+                            
+                            echo "<a class='btn btn-primary' href='#' name='deletarS' onClick='delreg($info[id_destinacao]);'>Deletar</a></td>";
+                            echo"<div id='mensagem'></div>";
+                            echo"<div id='mensagem1'></div>";
+                        echo "</td>";
+                    echo "</tr>";
+                    }
+                print "</table>";
+                }
+                ?>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                
             </div>
             
             <div id="rodape" class="navbar-inner">
@@ -165,6 +198,7 @@ $connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres
                     <div class="clear"></div>
                     <a href="#myModal" data-toggle="modal"> <img class="email" src="img/email.jpg" alt="Email" /></a>
                     <a href="http://www.orbicomunicacao.com.br/" target="_blank"><img class="logo" src="img/orbi.jpg" alt="Orbi" /></a>
+                    
                 </div>
             </div>
             <div id="traco-fim" class="navbar-inner"></div>

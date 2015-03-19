@@ -1,5 +1,5 @@
 <?php
-    $connection = pg_connect("host=localhost port=5432 dbname=Geores user=postgres password=root");
+    $connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=root");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -7,7 +7,7 @@
     <title>Amures</title>
     <meta charset="UTF8">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.css">
@@ -22,7 +22,7 @@
     <script src="js/bootstrap-modal.js"></script>
     <script src="js/jquery-1.8.2.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     $('#myModal').modal('hide');
@@ -92,7 +92,15 @@ $(document).ready(function() {
                     <option value="0">Aguardando residuo...</option>
                 </select>
                 
-              <p name="empresa1" id="empresa1">Empresa: <input type="text" name="empresa" id="empresa" /></p>
+             <select name="empresas" class="mainselection" id="empresas">
+                    <?php
+                        $result = pg_query($connection, "SELECT * FROM empresa");
+                        while($line = pg_fetch_assoc($result))
+                        {
+                            echo "<option value=\"$line[id_empresa]\">$line[nome_empresa]</option>";
+                        }
+                    ?>
+                </select>
                  
                  
                

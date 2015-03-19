@@ -1,5 +1,5 @@
 <?php
-$d= pg_connect("host=localhost port=5432 dbname=Geores user=postgres password=root");
+$d= pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=root");
 $coleta = $_POST['coleta'];
 
 if ($coleta==9) {
@@ -7,7 +7,7 @@ if ($coleta==9) {
 }
 else
 {
-  $result = pg_query($d,"SELECT * FROM placa_caminhao;");
+  $result = pg_query($d,"SELECT * FROM placa_caminhao");
   echo  '<option value="0">'.htmlentities('Aguardando coleta...').'</option>';
 
           while($ln = pg_fetch_assoc($result)){

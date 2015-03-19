@@ -1,6 +1,6 @@
 <?php
-$connection = pg_connect("host=localhost port=5432 dbname=Geores user=postgres password=root");
-$empresa=$_POST['empresa'];
+$connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=root");
+$empresa=$_POST['empresas'];
 $peso=$_POST['peso_saida'];
 $data=$_POST['calendario2'];
 $residuo=$_POST['residuo_classificado'];
@@ -13,12 +13,16 @@ $residuo= $line['nome_residuo'];
 
 
 
+
+
+
+
 if (!$connection) 
 die ("Erro de conexão com localhost, o seguinte erro ocorreu -> ");
 pg_query($connection,"INSERT INTO destinacao(
            residuo_classificado, peso, data, id_empresa, 
             tipo_destino)
-    VALUES ('$residuo','$peso','$data',2, '$tipo_destino')");
+    VALUES ('$residuo','$peso','$data','$empresa', '$tipo_destino')");
 
 
 print"cadastro feito com sucesso!";

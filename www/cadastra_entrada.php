@@ -1,10 +1,10 @@
 <?php
-$connection = pg_connect("host=localhost port=5432 dbname=Geores user=postgres password=root");
+$connection = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=root");
 $setor=$_POST['setor'];
 $municipio=$_POST['municipio'];
 $rota=$_POST['rota'];
 $coleta=$_POST['coleta'];
-$peso=$_POST['peso'];
+$peso=$_POST['peso1'];
 $data=$_POST['calendario'];
 $residuo=$_POST['residuo_entrada'];
 $placa_caminhao=$_POST['placa_caminhao'];
@@ -26,12 +26,13 @@ $motorista= $line['id_motorista'];
 
 if ($rota==0 && $placa_caminhao!=0) {
 
-	pg_query($connection,"INSERT INTO residuo (tipo_residuo, peso_residuo, placa_caminhao, origem_coleta, data, id_motorista, id_municipio, id_setor) values ('$residuo','$peso','$placa_caminhao','$coleta','$data','$motorista','$municipio','$setor')"); 
+	pg_query($connection,"INSERT INTO residuo (tipo_residuo, peso_residuo, placa_caminhao, origem_coleta, data, id_motorista, id_municipio, id_setor) 
+		values ('$residuo','$peso','$placa','$coleta','$data','$motorista','$municipio','$setor')"); 
 }
 else if ($rota!=0 && $placa_caminhao!=0) {
 	pg_query($connection,"INSERT INTO residuo(
             tipo_residuo, peso_residuo, placa_caminhao, origem_coleta, 
-            data, id_motorista, id_rota, id_municipio, id_setor) values ('$residuo','$peso','$placa_caminhao','$coleta','$data','$motorista','$rota','$municipio','$setor')"); 
+            data, id_motorista, id_rota, id_municipio, id_setor) values ('$residuo','$peso','$placa','$coleta','$data','$motorista','$rota','$municipio','$setor')"); 
 }
 else if ($rota!=0 && $placa_caminhao==0) {
 	pg_query($connection,"INSERT INTO residuo(
